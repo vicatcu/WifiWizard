@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,12 +20,12 @@
 var WifiWizard = {
 
     /**
-     * 	This method formats wifi information into an object for use with the
-     * 	addNetwork function. Currently only supports
-     *		@param SSID			the SSID of the network enclosed in double quotes
-     *		@param password		the password for the network enclosed in double quotes
-     * 	@param algorithm	the authentication algorithm
-     * 	@return	wifiConfig	a JSON object properly formatted for the plugin.
+     *  This method formats wifi information into an object for use with the
+     *  addNetwork function. Currently only supports
+     *    @param SSID     the SSID of the network enclosed in double quotes
+     *    @param password   the password for the network enclosed in double quotes
+     *  @param algorithm  the authentication algorithm
+     *  @return wifiConfig  a JSON object properly formatted for the plugin.
      */
     formatWifiConfig: function(SSID, password, algorithm) {
         var wifiConfig = {
@@ -50,30 +50,30 @@ var WifiWizard = {
             };
         }
         else {
-            console.log("Algorithm incorrect")
+            console.log("Algorithm incorrect");
             return false;
         }
         return wifiConfig;
     },
 
     /**
-     *	This method is a helper method that returns a wifi object with WPA.
+     *  This method is a helper method that returns a wifi object with WPA.
      */
     formatWPAConfig: function(SSID, password) {
         return WifiWizard.formatWifiConfig(SSID, password, 'WPA');
     },
 
     /**
-     *	This method formats a given SSID and ensures that it is appropriate.
-     *	If the SSID is not wrapped in double quotes, it wraps it in double quotes.
+     *  This method formats a given SSID and ensures that it is appropriate.
+     *  If the SSID is not wrapped in double quotes, it wraps it in double quotes.
      * Despite the name, this also needs to be done to WPA PSK.
-     *	@param	ssid	the SSID to format
+     *  @param  ssid  the SSID to format
      */
     formatWifiString: function(ssid) {
         if (ssid === undefined || ssid === null) {
             ssid = "";
         }
-        ssid = ssid.trim()
+        ssid = ssid.trim();
 
         if (ssid.charAt(0) != '"' ) {
             ssid = '"' + ssid;
@@ -90,12 +90,12 @@ var WifiWizard = {
      * This methods adds a network to the list of available networks.
      * Currently, only WPA authentication method is supported.
      *
-     * @param 	wifi is JSON formatted information necessary for adding the Wifi
-     * 			network, as is done in formatWifiConfig.
-     * @param 	win is a callback function that gets called if the plugin is
-     * 			successful.
-     * @param 	fail is a callback function that gets called if the plugin gets
-     * 			an error
+     * @param   wifi is JSON formatted information necessary for adding the Wifi
+     *      network, as is done in formatWifiConfig.
+     * @param   win is a callback function that gets called if the plugin is
+     *      successful.
+     * @param   fail is a callback function that gets called if the plugin gets
+     *      an error
      */
     addNetwork: function(wifi, win, fail) {
         //console.log("WifiWizard add method entered.");
@@ -144,30 +144,30 @@ var WifiWizard = {
     },
 
     /**
-     *	This method removes a given network from the list of configured networks.
-     *	@param	SSID	of the network to remove
-     *	@param	win		function to handle successful callback
-     *	@param	fail		function to handle error callback
+     *  This method removes a given network from the list of configured networks.
+     *  @param  SSID  of the network to remove
+     *  @param  win   function to handle successful callback
+     *  @param  fail    function to handle error callback
      */
     removeNetwork: function(SSID, win, fail) {
         cordova.exec(win, fail, 'WifiWizard', 'removeNetwork', [WifiWizard.formatWifiString(SSID)]);
     },
 
     /**
-     *	This method connects a network if it is configured.
-     *	@param	SSID	the network to connect
-     *	@param	win		function that is called if successful
-     * @param	fail		function that is called to handle errors
+     *  This method connects a network if it is configured.
+     *  @param  SSID  the network to connect
+     *  @param  win   function that is called if successful
+     * @param fail    function that is called to handle errors
      */
     connectNetwork: function(SSID, win, fail) {
         cordova.exec(win, fail, 'WifiWizard', 'connectNetwork', [WifiWizard.formatWifiString(SSID)]);
     },
 
     /**
-     *	This method disconnects a network if it is configured.
-     *	@param	SSID	the network to disconnect
-     *	@param	win		function that is called if successful
-     * @param	fail		function that is called to handle errors
+     *  This method disconnects a network if it is configured.
+     *  @param  SSID  the network to disconnect
+     *  @param  win   function that is called if successful
+     * @param fail    function that is called to handle errors
      */
     disconnectNetwork: function(SSID, win, fail) {
         cordova.exec(win, fail, 'WifiWizard', 'disconnectNetwork', [WifiWizard.formatWifiString(SSID)]);
@@ -175,10 +175,10 @@ var WifiWizard = {
     },
 
     /**
-     *	Hands the list of previously used and configured networks to the `win` success callback function.
-     * @param 	win	callback function that receives list of networks
-     * @param 	fail	callback function if error
-     * @return		a list of networks
+     *  Hands the list of previously used and configured networks to the `win` success callback function.
+     * @param   win callback function that receives list of networks
+     * @param   fail  callback function if error
+     * @return    a list of networks
      */
     listNetworks: function(win, fail) {
         if (typeof win != "function") {
@@ -188,13 +188,13 @@ var WifiWizard = {
         cordova.exec(win, fail, 'WifiWizard', 'listNetworks', []);
     },
 
-	/**
-	 *  Hands the list of scanned  networks to the `win` success callback function.
+  /**
+   *  Hands the list of scanned  networks to the `win` success callback function.
          * @param   opts optional json object of options
-	 * @param 	win	callback function that receives list of networks
-	 * @param 	fail	callback function if error
-	 * @return		a list of networks
-	 */
+   * @param   win callback function that receives list of networks
+   * @param   fail  callback function if error
+   * @return    a list of networks
+   */
     getScanResults: function(options, win, fail) {
         if (typeof options === 'function') {
             fail = win;
@@ -212,8 +212,8 @@ var WifiWizard = {
 
     /**
      *  Start scanning wifi.
-     * @param 	win	callback function
-     * @param 	fail	callback function if error
+     * @param   win callback function
+     * @param   fail  callback function if error
      */
     startScan: function(win, fail) {
         if (typeof win != "function") {
@@ -225,8 +225,8 @@ var WifiWizard = {
 
     /**
      *  Disconnect current wifi.
-     * @param 	win	callback function
-     * @param 	fail	callback function if error
+     * @param   win callback function
+     * @param   fail  callback function if error
      */
     disconnect: function(win, fail) {
         if (typeof win != "function") {
@@ -238,8 +238,8 @@ var WifiWizard = {
 
     /**
      *  Gets the currently connected wifi SSID
-     * @param 	win	callback function
-     * @param 	fail	callback function if error
+     * @param   win callback function
+     * @param   fail  callback function if error
      */
     getCurrentSSID: function(win, fail) {
         if (typeof win != "function") {
@@ -248,7 +248,16 @@ var WifiWizard = {
         }
         cordova.exec(win, fail, 'WifiWizard', 'getConnectedSSID', []);
     },
-    
+
+    getSupplicantState: function(win, fail) {
+        if (typeof win != "function") {
+            console.log("getSupplicantState first parameter must be a function to handle SSID.");
+            return;
+        }
+        cordova.exec(win, fail, 'WifiWizard', 'getSupplicantState', []);
+    },
+
+
     getCurrentBSSID: function(win, fail) {
         if (typeof win != "function") {
             console.log("getCurrentSSID first parameter must be a function to handle SSID.");
@@ -259,8 +268,8 @@ var WifiWizard = {
 
     /**
      *  Gets 'true' or 'false' if WiFi is enabled or disabled
-     * @param 	win	callback function
-     * @param 	fail
+     * @param   win callback function
+     * @param   fail
      */
     isWifiEnabled: function(win, fail) {
         if (typeof win != "function") {
@@ -279,9 +288,9 @@ var WifiWizard = {
 
     /**
      *  Gets '1' if WiFi is enabled
-     * @param   enabled	callback function
-     * @param 	win	callback function
-     * @param 	fail	callback function if wifi is disabled
+     * @param   enabled callback function
+     * @param   win callback function
+     * @param   fail  callback function if wifi is disabled
      */
     setWifiEnabled: function(enabled, win, fail) {
         if (typeof win != "function") {
