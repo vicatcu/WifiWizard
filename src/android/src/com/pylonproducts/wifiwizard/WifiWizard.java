@@ -547,6 +547,12 @@ public class WifiWizard extends CordovaPlugin {
             return false;
         }
 
+        SupplicantState state = info.getSupplicantState();
+        if(!state.equals(SupplicantState.COMPLETED)) {
+            callbackContext.error("Connection not in COMPLETED state");
+            return false;
+        }
+
         String ssid = info.getSSID();
         if(ssid == null || ssid.isEmpty()) {
             ssid = info.getBSSID();
